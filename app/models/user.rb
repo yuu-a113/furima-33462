@@ -5,13 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
-  
-  validates :bday, presence: true
 
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])\w{6,100}\z/
   # VALID_PASSWORD_REGEX = /\A[a-zA-Z\d]{6,100}+\z/i
 
-  VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥]/
+  VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥々]/
 
   VALID_KANA_REGEX = /\A[ァ-ヶー－]+\z/
 
