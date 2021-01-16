@@ -6,8 +6,7 @@ class User < ApplicationRecord
 
   has_many :items
 
-  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])\w{6,100}\z/
-  # VALID_PASSWORD_REGEX = /\A[a-zA-Z\d]{6,100}+\z/i
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-zA-Z])(?=.*?[\d])\w{6,100}\z/
 
   VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥々]/
 
