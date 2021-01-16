@@ -6,7 +6,6 @@ class User < ApplicationRecord
 
   has_many :items
   
-  validates :nickname, uniqueness: true, presence: true
   validates :bday, presence: true
 
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[\d])\w{6,100}\z/
@@ -16,37 +15,22 @@ class User < ApplicationRecord
 
   VALID_KANA_REGEX = /\A[ァ-ヶー－]+\z/
 
-
-
-  validates :password, presence: true,
-                       format: {
+  with_options presence: true do
+    validates :nickname, uniqueness: true
+    validates :bday
+    validates :password,format: {
                         with: VALID_PASSWORD_REGEX,
                         message: "is invalid"
                        }
+    with_options format: {with: VALID_NAME_REGEX,message: "is invalid"} do
+      validates :last_name
+      validates :first_name
+    end
+    with_options format: {with: VALID_KANA_REGEX,message: "is invalid"} do
+      validates :last_name_kana
+      validates :first_name_kana
+    end
 
-  validates :last_name, presence: true,
-                        format: {
-                          with: VALID_NAME_REGEX,
-                          message: "is invalid"
 
-                        }
-
-  validates :first_name, presence: true,
-                         format: {
-                          with: VALID_NAME_REGEX,
-                          message: "is invalid"
-                         }
-
-  validates :last_name_kana, presence: true,
-                             format: {
-                               with: VALID_KANA_REGEX,
-                               message: "is invalid"
-                              }
-
-  validates :first_name_kana, presence: true,
-                              format: {
-                                with: VALID_KANA_REGEX,
-                                message: "is invalid"
-                              }
-
+  end
 end
