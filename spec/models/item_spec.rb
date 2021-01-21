@@ -10,10 +10,6 @@ RSpec.describe Item, type: :model do
       it "nameとinfo、category_id、condition_id、shipping_charge_id、prefecture_id、shipping_day_id、price、imageが存在すれば登録できる" do
         expect(@item).to be_valid
       end
-      it "priceが半角数字で300以上、9,999,999以下で登録できる" do
-        @item.price = 1234567
-        expect(@item).to be_valid
-      end
     end
 
     context '登録がうまくいかないとき' do
