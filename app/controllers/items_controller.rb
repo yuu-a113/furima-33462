@@ -20,7 +20,7 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
-    unless user_signed_in? && current_user.id == @prototype.user.id
+    unless user_signed_in? && current_user.id == @item.user.id
       redirect_to action: :index
     end
   end
@@ -38,7 +38,11 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
   
-  
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to items_path
+  end
 
   private
   def item_params
