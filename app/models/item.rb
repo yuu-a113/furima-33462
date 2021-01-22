@@ -11,12 +11,16 @@ class Item < ApplicationRecord
 
   VALID_PRICE_REGEX = /\A[0-9]+\z/
 
-  with_options presence: true do
+  with_options presence: true, unless: :was_attached? do
     validates :image
     validates :name
     validates :info
     validates :price, numericality: { greater_than: 300, less_than: 9999999 }, 
               format: {with: VALID_PRICE_REGEX}
+  end
+
+  def was_attached?
+    self.image.attached?
   end
 
   with_options numericality: { other_than: 1 } do

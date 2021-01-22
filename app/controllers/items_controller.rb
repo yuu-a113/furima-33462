@@ -16,11 +16,29 @@ class ItemsController < ApplicationController
     else
       render :new
     end
+  end
 
-    def show
-      @item = Item.find(params[:id])
+  def edit
+    @item = Item.find(params[:id])
+    unless user_signed_in? && current_user.id == @prototype.user.id
+      redirect_to action: :index
     end
   end
+
+  def update
+    item = Item.find(params[:id])
+    if item.update(item_params)
+      redirect_to item_path
+    else
+      render :edit
+    end
+  end
+    
+  def show
+    @item = Item.find(params[:id])
+  end
+  
+  
 
   private
   def item_params
