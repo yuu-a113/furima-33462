@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe PurchaseShipment, type: :model do
   before do
-    @purchase_shipment = FactoryBot.build(:purchase_shipment)
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item)
+    @purchase_shipment = FactoryBot.build(:purchase_shipment, user_id: @user.id , item_id: @item.id)
   end
 
   context '登録がうまくいくとき' do
@@ -75,6 +77,18 @@ RSpec.describe PurchaseShipment, type: :model do
       @purchase_shipment.phone_num = '090123456789'
       @purchase_shipment.valid?
       expect(@purchase_shipment.errors.full_messages).to include("Phone num is invalid")
+    end
+
+    it "user_idが空だと登録できない" do
+      @purchase_shipment.user_id = nil
+      @purchase_shipment.valid?
+      expect(@purchase_shipment.errors.full_messages).to include("Phone num can't be blank")
+    end
+
+    it "item_idが空だと登録できない" do
+      @purchase_shipment.item_id = nil
+      @purchase_shipment.valid?
+      expect(@purchase_shipment.errors.full_messages).to include("Phone num can't be blank")
     end
 
   end
