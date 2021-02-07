@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
+  has_many :purchases
 
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-zA-Z])(?=.*?[\d])\w{6,100}\z/
 
