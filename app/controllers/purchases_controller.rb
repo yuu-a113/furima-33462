@@ -33,11 +33,11 @@ class PurchasesController < ApplicationController
   end
 
   def set_item
-    @items = Item.find(params[:item_id])
+    @item = Item.find(params[:item_id])
   end
 
   def move_to_index
-    if @items.purchase.present? || current_user.id == @items.user.id
+    if @item.purchase.present? || current_user.id == @item.user.id
       redirect_to root_path
     end
   end

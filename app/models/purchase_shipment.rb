@@ -8,6 +8,8 @@ class PurchaseShipment
     validates :city
     validates :street_address
     validates :phone_num, format: { with: /\A\d{10,11}\z/, message: "is invalid"}
+    validates :user_id
+    validates :item_id
   end
 
   validates :prefecture_id, numericality: { other_than: 1 }
